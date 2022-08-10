@@ -4,7 +4,7 @@ import PizzaCard from "./PizzaCard";
 
 const PizzaList = ({ pizzaList }) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="products">
       <h1 className={styles.title}>THE BEST PIZZA IN TOWN</h1>
       <p className={styles.desc}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut blandit arcu
