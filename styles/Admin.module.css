@@ -10,7 +10,7 @@
 .table {
   width: 100%;
   border-spacing: 20px;
-  text-align: left;
+  text-align: center;
 }
 
 .button {
@@ -20,6 +20,11 @@
   cursor: pointer;
 }
 
+.headerTitle {
+  text-align: center;
+  font-family: "cursive";
+}
+
 .button:first-child {
   background-color: teal;
   margin-right: 10px;
@@ -27,4 +32,10 @@
 
 .button:last-child {
   background-color: crimson;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }

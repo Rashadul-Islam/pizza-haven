@@ -1,10 +1,14 @@
 import axios from "axios";
 import Image from "next/image";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/Admin.module.css";
+import Pagination from "@mui/material/Pagination";
 
-const Index = ({ products }) => {
+const managepizza = ({ products }) => {
   const [pizzaList, setPizzaList] = useState(products);
+  const [page, setPage] = useState(1);
+  const [paginateItems, setPaginateItems] = useState([]);
+
   const handleDelete = async (id) => {
     try {
       const res = await axios.delete(
@@ -16,10 +20,18 @@ const Index = ({ products }) => {
     }
   };
 
+  useEffect(() => {
+    const startIndex = (page - 1) * 10;
+    setPaginateItems(pizzaList?.slice(startIndex, startIndex + 10));
+    return () => {
+      setPaginateItems([]);
+    };
+  }, [page, pizzaList]);
+
   return (
-    <div className={styles.container}>
+    <div className={styles.orderConainer}>
+      <h1 className={styles.headerTitle}>Manage Products</h1>
       <div className={styles.item}>
-        <h1 className={styles.title}>Products</h1>
         <table className={styles.table}>
           <tbody>
             <tr className={styles.trTitle}>
@@ -30,7 +42,7 @@ const Index = ({ products }) => {
               <th>Action</th>
             </tr>
           </tbody>
-          {pizzaList.map((product) => (
+          {paginateItems.map((product) => (
             <tbody key={product._id}>
               <tr className={styles.trTitle}>
                 <td>
@@ -59,6 +71,15 @@ const Index = ({ products }) => {
           ))}
         </table>
       </div>
+      <div className={styles.pagination}>
+        <Pagination
+          count={Math.ceil(products?.length / 10)}
+          page={page}
+          color="secondary"
+          variant="outlined"
+          onChange={(e, value) => setPage(value)}
+        />
+      </div>
     </div>
   );
 };
@@ -79,11 +100,10 @@ export const getServerSideProps = async (ctx) => {
 
   return {
     props: {
-      orders: orderRes.data,
       products: productRes.data,
       show: true,
     },
   };
 };
 
-export default Index;
+export default managepizza;

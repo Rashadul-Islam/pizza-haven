@@ -1,0 +1,106 @@
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import styles from "../../styles/Admin.module.css";
+import Pagination from "@mui/material/Pagination";
+
+const orders = ({ orders }) => {
+  const [orderList, setOrderList] = useState(orders);
+  const status = ["preparing", "on the way", "delivered"];
+  const [page, setPage] = useState(1);
+  const [paginateItems, setPaginateItems] = useState([]);
+
+  const handleStatus = async (id) => {
+    const item = orderList.filter((order) => order._id === id)[0];
+    const currentStatus = item.status;
+    try {
+      const res = await axios.put("http://localhost:3000/api/orders/" + id, {
+        status: currentStatus + 1,
+      });
+      setOrderList([
+        res.data,
+        ...orderList.filter((order) => order._id !== id),
+      ]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    const startIndex = (page - 1) * 10;
+    setPaginateItems(orderList?.slice(startIndex, startIndex + 10));
+    return () => {
+      setPaginateItems([]);
+    };
+  }, [page, orderList]);
+
+  return (
+    <div className={styles.orderConainer}>
+      <h1 className={styles.headerTitle}>Order List</h1>
+      <table className={styles.table}>
+        <tbody>
+          <tr className={styles.trTitle}>
+            <th>Customer</th>
+            <th>Id</th>
+            <th>Total</th>
+            <th>Payment</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </tbody>
+        {paginateItems?.map((order) => (
+          <tbody key={order._id}>
+            <tr className={styles.trTitle}>
+              <td>{order.customer}</td>
+              <td>{order._id}</td>
+              <td>${order.total}</td>
+              <td>
+                {order.method === 0 ? <span>cash</span> : <span>paid</span>}
+              </td>
+              <td>{status[order.status]}</td>
+              <td>
+                <button
+                  className={styles.button}
+                  onClick={() => handleStatus(order._id)}
+                >
+                  Next Stage
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        ))}
+      </table>
+      <div className={styles.pagination}>
+        <Pagination
+          count={Math.ceil(orders?.length / 10)}
+          page={page}
+          color="secondary"
+          variant="outlined"
+          onChange={(e, value) => setPage(value)}
+        />
+      </div>
+    </div>
+  );
+};
+
+export const getServerSideProps = async (ctx) => {
+  const myCookie = ctx.req?.cookies || "";
+
+  if (myCookie.token !== process.env.TOKEN) {
+    return {
+      redirect: {
+        destination: "/admin/login",
+        permanent: false,
+      },
+    };
+  }
+  const orderRes = await axios.get("http://localhost:3000/api/orders");
+
+  return {
+    props: {
+      orders: orderRes.data,
+      show: true,
+    },
+  };
+};
+
+export default orders;
