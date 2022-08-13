@@ -6,6 +6,7 @@ import Pagination from "@mui/material/Pagination";
 
 const managepizza = ({ products }) => {
   const [pizzaList, setPizzaList] = useState(products);
+  //comment unnecessary
   const [page, setPage] = useState(1);
   const [paginateItems, setPaginateItems] = useState([]);
 
