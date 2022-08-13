@@ -11,7 +11,7 @@ const handler = async (req, res) => {
 
   if (method === "GET") {
     try {
-      const order = await Order.findById(id);
+      const order = await Order.findById(id).populate("products");
       res.status(200).json(order);
     } catch (err) {
       res.status(500).json(err);

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import styles from "../../styles/Login.module.css";
 
-const Login = () => {
+const login = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
@@ -45,4 +45,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default login;

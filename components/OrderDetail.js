@@ -1,12 +1,16 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/OrderDetail.module.css";
 
 const OrderDetail = ({ total, createOrder }) => {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
   const [customer, setCustomer] = useState("");
   const [address, setAddress] = useState("");
 
   const handleClick = () => {
-    createOrder({ customer, address, total, method: 0 });
+    const products = cart?.products?.map((data) => data?._id);
+    createOrder({ products, customer, address, total, method: 0 });
   };
 
   return (

@@ -5,6 +5,8 @@ import Pagination from "@mui/material/Pagination";
 
 const orders = ({ orders }) => {
   const [orderList, setOrderList] = useState(orders);
+  const [viewOrder, setViewOrder] = useState(null);
+  const [getOrder, setGetOrder] = useState([]);
   const status = ["preparing", "on the way", "delivered"];
   const [page, setPage] = useState(1);
   const [paginateItems, setPaginateItems] = useState([]);
@@ -24,6 +26,25 @@ const orders = ({ orders }) => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (viewOrder) {
+      const fetchData = async () => {
+        try {
+          const res = await axios.get(
+            `http://localhost:3000/api/orders/${viewOrder}`
+          );
+          setGetOrder(res.data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      fetchData();
+    }
+    return () => {
+      setGetOrder([]);
+    };
+  }, [viewOrder]);
 
   useEffect(() => {
     const startIndex = (page - 1) * 10;
@@ -58,6 +79,12 @@ const orders = ({ orders }) => {
               </td>
               <td>{status[order.status]}</td>
               <td>
+                <button
+                  className={styles.button}
+                  onClick={() => setViewOrder(order._id)}
+                >
+                  View Order
+                </button>
                 <button
                   className={styles.button}
                   onClick={() => handleStatus(order._id)}

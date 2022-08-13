@@ -79,7 +79,6 @@ export const getServerSideProps = async (ctx) => {
 
   return {
     props: {
-      orders: orderRes.data,
       products: productRes.data,
       show: true,
     },

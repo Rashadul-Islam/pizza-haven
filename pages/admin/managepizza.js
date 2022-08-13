@@ -6,7 +6,6 @@ import Pagination from "@mui/material/Pagination";
 
 const managepizza = ({ products }) => {
   const [pizzaList, setPizzaList] = useState(products);
-  //comment unnecessary
   const [page, setPage] = useState(1);
   const [paginateItems, setPaginateItems] = useState([]);
 
@@ -31,7 +30,7 @@ const managepizza = ({ products }) => {
 
   return (
     <div className={styles.orderConainer}>
-      <h1 className={styles.headerTitle}>Manage Products</h1>
+      <h1 className={styles.headerTitle}>Manage Pizza</h1>
       <div className={styles.item}>
         <table className={styles.table}>
           <tbody>
@@ -40,6 +39,7 @@ const managepizza = ({ products }) => {
               <th>Id</th>
               <th>Title</th>
               <th>Price</th>
+              <th>Extras</th>
               <th>Action</th>
             </tr>
           </tbody>
@@ -51,13 +51,21 @@ const managepizza = ({ products }) => {
                     src={product.img}
                     width={50}
                     height={50}
-                    objectFit="cover"
+                    objectFit="fill"
                     alt=""
                   />
                 </td>
                 <td>{product._id}</td>
                 <td>{product.title}</td>
                 <td>${product.prices[0]}</td>
+                <td>
+                  {product?.extraOptions?.map((option, i, arr) => (
+                    <span key={i}>
+                      {option?.text}
+                      {i !== arr.length - 1 ? ", " : ""}
+                    </span>
+                  ))}
+                </td>
                 <td>
                   <button className={styles.button}>Edit</button>
                   <button
