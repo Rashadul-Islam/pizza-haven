@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/Admin.module.css";
 import Pagination from "@mui/material/Pagination";
+import ViewOrder from "../../components/ViewOrder";
 
 const orders = ({ orders }) => {
   const [orderList, setOrderList] = useState(orders);
@@ -10,6 +11,7 @@ const orders = ({ orders }) => {
   const status = ["preparing", "on the way", "delivered"];
   const [page, setPage] = useState(1);
   const [paginateItems, setPaginateItems] = useState([]);
+  const [close, setClose] = useState(false);
 
   const handleStatus = async (id) => {
     const item = orderList.filter((order) => order._id === id)[0];
@@ -54,8 +56,16 @@ const orders = ({ orders }) => {
     };
   }, [page, orderList]);
 
+  const handleModal = (data) => {
+    setViewOrder(data);
+    setClose(true);
+  };
+
   return (
-    <div className={styles.orderConainer}>
+    <div
+      className={styles.orderConainer}
+      onClick={() => close && setClose(false)}
+    >
       <h1 className={styles.headerTitle}>Order List</h1>
       <table className={styles.table}>
         <tbody>
@@ -81,7 +91,7 @@ const orders = ({ orders }) => {
               <td>
                 <button
                   className={styles.button}
-                  onClick={() => setViewOrder(order._id)}
+                  onClick={() => handleModal(order._id)}
                 >
                   View Order
                 </button>
@@ -105,6 +115,7 @@ const orders = ({ orders }) => {
           onChange={(e, value) => setPage(value)}
         />
       </div>
+      {close && <ViewOrder setClose={setClose} />}
     </div>
   );
 };
