@@ -3,11 +3,14 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/Admin.module.css";
 import Pagination from "@mui/material/Pagination";
+import EditPizza from "../../components/EditPizza";
 
 const managepizza = ({ products }) => {
   const [pizzaList, setPizzaList] = useState(products);
   const [page, setPage] = useState(1);
   const [paginateItems, setPaginateItems] = useState([]);
+  const [editDefault, setEditDefault] = useState([]);
+  const [openEdit, setOpenEdit] = useState(false);
 
   const handleDelete = async (id) => {
     try {
@@ -18,6 +21,11 @@ const managepizza = ({ products }) => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleEdit = (data) => {
+    setEditDefault(data);
+    setOpenEdit(true);
   };
 
   useEffect(() => {
@@ -67,7 +75,12 @@ const managepizza = ({ products }) => {
                   ))}
                 </td>
                 <td>
-                  <button className={styles.button}>Edit</button>
+                  <button
+                    className={styles.button}
+                    onClick={() => handleEdit(product)}
+                  >
+                    Edit
+                  </button>
                   <button
                     className={styles.button}
                     onClick={() => handleDelete(product._id)}
@@ -89,6 +102,7 @@ const managepizza = ({ products }) => {
           onChange={(e, value) => setPage(value)}
         />
       </div>
+      {openEdit && <EditPizza />}
     </div>
   );
 };

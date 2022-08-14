@@ -78,7 +78,11 @@ const Cart = () => {
           onApprove={function (data, actions) {
             return actions.order.capture().then(function (details) {
               const shipping = details.purchase_units[0].shipping;
-              const products = cart?.products?.map((data) => data?._id);
+              const products = cart?.products?.map((data) => ({
+                item: data?._id,
+                quantity: parseInt(data?.quantity),
+                extras: data?.extras?.map((extra) => extra?.text),
+              }));
               createOrder({
                 products: products,
                 customer: shipping.name.full_name,
@@ -112,12 +116,7 @@ const Cart = () => {
               <tr className={styles.tr} key={product._id}>
                 <td>
                   <div className={styles.imgContainer}>
-                    <Image
-                      src={product.img}
-                      layout="fill"
-                      objectFit="cover"
-                      alt=""
-                    />
+                    <Image src={product.img} layout="fill" alt="" />
                   </div>
                 </td>
                 <td>
@@ -125,9 +124,12 @@ const Cart = () => {
                 </td>
                 <td>
                   <span className={styles.extras}>
-                    {product.extras.map((extra) => (
-                      <span key={extra._id}>{extra.text}, </span>
-                    ))}
+                    {product?.extras?.length ? product?.extras?.map((option, i, arr) => (
+                      <span key={i}>
+                        {option?.text}
+                        {i !== arr.length - 1 ? ", " : ""}
+                      </span>
+                    )):"none"}
                   </span>
                 </td>
                 <td>

@@ -9,7 +9,11 @@ const OrderDetail = ({ total, createOrder }) => {
   const [address, setAddress] = useState("");
 
   const handleClick = () => {
-    const products = cart?.products?.map((data) => data?._id);
+    const products = cart?.products?.map((data) => ({
+      item: data?._id,
+      quantity: parseInt(data?.quantity),
+      extras: data?.extras?.map((extra) => extra?.text),
+    }));
     createOrder({ products, customer, address, total, method: 0 });
   };
 

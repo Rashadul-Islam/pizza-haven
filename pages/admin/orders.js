@@ -75,6 +75,7 @@ const orders = ({ orders }) => {
             <th>Total</th>
             <th>Payment</th>
             <th>Status</th>
+            <th>Address</th>
             <th>Action</th>
           </tr>
         </tbody>
@@ -88,6 +89,7 @@ const orders = ({ orders }) => {
                 {order.method === 0 ? <span>cash</span> : <span>paid</span>}
               </td>
               <td>{status[order.status]}</td>
+              <td>{order?.address}</td>
               <td>
                 <button
                   className={styles.button}
@@ -115,7 +117,7 @@ const orders = ({ orders }) => {
           onChange={(e, value) => setPage(value)}
         />
       </div>
-      {close && <ViewOrder setClose={setClose} />}
+      {close && <ViewOrder setClose={setClose} getOrder={getOrder} />}
     </div>
   );
 };
