@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import styles from "../../styles/Admin.module.css";
 import Pagination from "@mui/material/Pagination";
 import EditPizza from "../../components/EditPizza";
+import { useRouter } from "next/router";
 
 const managepizza = ({ products }) => {
+  const router = useRouter();
   const [pizzaList, setPizzaList] = useState(products);
   const [page, setPage] = useState(1);
   const [paginateItems, setPaginateItems] = useState([]);
@@ -36,8 +38,16 @@ const managepizza = ({ products }) => {
     };
   }, [page, pizzaList]);
 
+  const refreshData = () => {
+    router.replace(router.asPath);
+    setOpenEdit(false);
+  };
+
   return (
-    <div className={styles.orderConainer}>
+    <div
+      className={styles.orderConainer}
+      onClick={() => openEdit && setOpenEdit(false)}
+    >
       <h1 className={styles.headerTitle}>Manage Pizza</h1>
       <div className={styles.item}>
         <table className={styles.table}>
@@ -102,7 +112,13 @@ const managepizza = ({ products }) => {
           onChange={(e, value) => setPage(value)}
         />
       </div>
-      {openEdit && <EditPizza />}
+      {openEdit && (
+        <EditPizza
+          setOpenEdit={setOpenEdit}
+          editDefault={editDefault}
+          refreshData={refreshData}
+        />
+      )}
     </div>
   );
 };

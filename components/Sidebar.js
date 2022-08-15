@@ -1,12 +1,14 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { FaTh, FaBars } from "react-icons/fa";
+import { FaTh, FaBars, FaRegUserCircle } from "react-icons/fa";
 import { GiFullPizza, GiShoppingCart } from "react-icons/gi";
 import { SiAddthis } from "react-icons/si";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import { useRouter } from "next/router";
 import styles from "../styles/Sidebar.module.css";
 
 const Sidebar = ({ children }) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const menuItem = [
@@ -57,10 +59,10 @@ const Sidebar = ({ children }) => {
           </div>
         </div>
         {menuItem.map((item, index) => (
+          <div key={index}
+          className={router.pathname === item.path ? styles.active : ""}>
           <Link
             href={item.path}
-            key={index}
-            activeclassName={styles.active}
             passHref
           >
             <div className={styles.link}>
@@ -73,9 +75,21 @@ const Sidebar = ({ children }) => {
               </div>
             </div>
           </Link>
+          </div>
         ))}
       </div>
-      <main className={styles.main}>{children}</main>
+      <main className={styles.main}>
+        <div className={styles.sidebarHead}>
+          <div className={styles.text}>
+            <p>Hello, Admin</p>
+            <p>Welcome to the board</p>
+          </div>
+          <div className={styles.adminImg}>
+            <FaRegUserCircle />
+          </div>
+        </div>
+        {children}
+      </main>
     </div>
   );
 };

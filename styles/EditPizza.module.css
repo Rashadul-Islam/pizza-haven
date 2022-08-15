@@ -4,6 +4,7 @@
   background-color: rgba(245, 240, 240, 0.52);
   position: fixed;
   top: 0;
+  left: 0;
   z-index: 999;
   display: flex;
   align-items: center;
@@ -56,7 +57,7 @@
 .input {
   border: none;
   font-size: 15px;
-  background-color: rgb(184, 232, 220);
+  background-color: white;
   border-bottom: 1px solid gray;
   outline: none;
 }
@@ -93,7 +94,6 @@
   color: tomato;
   margin-right: 10px;
   border-radius: 10px;
-  cursor: pointer;
 }
 
 .addButton {
@@ -105,4 +105,39 @@
   cursor: pointer;
   padding: 5px 0;
   align-self: flex-end;
+}
+
+.headerTitle {
+  text-align: center;
+  font-family: "cursive";
+}
+
+.deleteExtra {
+  position: absolute;
+  color: white;
+  padding: 2px 5px;
+  background-color: black;
+  border-radius: 50%;
+  margin-left: -20px;
+  margin-top: -12px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.defaultImg {
+  height: 70px;
+  width: 70px;
+}
+
+.imageDelete {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  background-color: black;
+  color: white;
+  padding: 1px 7px;
+  border-radius: 50%;
+  font-size: 15px;
+  border: 1px solid white;
+  cursor: pointer;
 }

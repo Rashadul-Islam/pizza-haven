@@ -3,11 +3,10 @@
 }
 .main {
   width: 100%;
-  padding: 20px;
   background-color: rgb(184, 232, 220);
 }
 .sidebar {
-  background: #000;
+  background: rgb(3, 102, 91);
   color: #fff;
   height: 100vh;
   width: 200px;
@@ -36,6 +35,7 @@
   gap: 15px;
   transition: all 0.5s;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 .link:hover {
   background: lightskyblue;
@@ -43,15 +43,31 @@
   transition: all 0.5s;
 }
 .active {
-  background: lightskyblue;
+  background-color: lightskyblue;
   color: #000;
-}
-.link:last-child {
-  margin-top: 50vh;
 }
 .icon,
 .link_text {
   font-size: 20px;
   font-family: "Papyrus";
   white-space: nowrap;
+}
+.sidebarHead {
+  background-color: rgb(135, 126, 126);
+  height: 60px;
+  display: flex;
+}
+.text {
+  color: white;
+  line-height: 5px;
+  margin-left: 20px;
+  position: absolute;
+}
+
+.adminImg {
+  position: absolute;
+  right: 20px;
+  top: 7px;
+  font-size: 40px;
+  color: white;
 }
