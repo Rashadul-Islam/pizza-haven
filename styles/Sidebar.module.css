@@ -61,13 +61,26 @@
   color: white;
   line-height: 5px;
   margin-left: 20px;
-  position: absolute;
 }
 
 .adminImg {
-  position: absolute;
+  position: fixed;
   right: 20px;
   top: 7px;
   font-size: 40px;
   color: white;
+}
+
+@media only screen and (max-width: 600px) {
+  .sidebar {
+    position: fixed;
+    z-index: 1;
+  }
+  .main {
+    padding-left: 50px;
+  }
+  .sidebarHead {
+    position: fixed;
+    width: 100vw;
+  }
 }

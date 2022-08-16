@@ -59,22 +59,21 @@ const Sidebar = ({ children }) => {
           </div>
         </div>
         {menuItem.map((item, index) => (
-          <div key={index}
-          className={router.pathname === item.path ? styles.active : ""}>
-          <Link
-            href={item.path}
-            passHref
+          <div
+            key={index}
+            className={router.pathname === item.path ? styles.active : ""}
           >
-            <div className={styles.link}>
-              <div className={styles.icon}>{item.icon}</div>
-              <div
-                style={{ display: isOpen ? "block" : "none" }}
-                className={styles.link_text}
-              >
-                {item.name}
+            <Link href={item.path} passHref>
+              <div className={styles.link}>
+                <div className={styles.icon}>{item.icon}</div>
+                <div
+                  style={{ display: isOpen ? "block" : "none" }}
+                  className={styles.link_text}
+                >
+                  {item.name}
+                </div>
               </div>
-            </div>
-          </Link>
+            </Link>
           </div>
         ))}
       </div>

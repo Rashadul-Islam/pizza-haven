@@ -8,11 +8,19 @@ import { useRouter } from "next/router";
 
 const managepizza = ({ products }) => {
   const router = useRouter();
+  const [getPizza, setPizza] = useState(products);
   const [pizzaList, setPizzaList] = useState(products);
   const [page, setPage] = useState(1);
   const [paginateItems, setPaginateItems] = useState([]);
   const [editDefault, setEditDefault] = useState([]);
   const [openEdit, setOpenEdit] = useState(false);
+
+  useEffect(() => {
+    setPizza(products);
+    return () => {
+      setPizza(products);
+    };
+  }, [products]);
 
   const handleDelete = async (id) => {
     try {
@@ -32,11 +40,11 @@ const managepizza = ({ products }) => {
 
   useEffect(() => {
     const startIndex = (page - 1) * 10;
-    setPaginateItems(pizzaList?.slice(startIndex, startIndex + 10));
+    setPaginateItems(getPizza?.slice(startIndex, startIndex + 10));
     return () => {
       setPaginateItems([]);
     };
-  }, [page, pizzaList]);
+  }, [page, getPizza]);
 
   const refreshData = () => {
     router.replace(router.asPath);
@@ -61,7 +69,7 @@ const managepizza = ({ products }) => {
               <th>Action</th>
             </tr>
           </tbody>
-          {paginateItems.map((product) => (
+          {paginateItems?.map((product) => (
             <tbody key={product._id}>
               <tr className={styles.trTitle}>
                 <td>
@@ -75,7 +83,10 @@ const managepizza = ({ products }) => {
                 </td>
                 <td>{product._id}</td>
                 <td>{product.title}</td>
-                <td>${product.prices[0]}</td>
+                <td>
+                  ${product.prices[0]} (small), ${product.prices[1]} (medium), $
+                  {product.prices[2]} (large)
+                </td>
                 <td>
                   {product?.extraOptions?.map((option, i, arr) => (
                     <span key={i}>

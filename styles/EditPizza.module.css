@@ -141,3 +141,9 @@
   border: 1px solid white;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 600px) {
+  .wrapper {
+    width: 90%;
+  }
+}

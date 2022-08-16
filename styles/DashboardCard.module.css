@@ -1,0 +1,41 @@
+.container {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(241, 248, 245);
+  margin-top: 40px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #080302;
+  line-height: 20px;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: bold;
+  white-space: nowrap;
+  line-height: 20px;
+}
+
+.chart {
+  height: 40vh;
+  margin-top: 150px;
+}
+
+@media only screen and (max-width: 600px) {
+  .chart {
+    height: 40vh;
+    width: 100%;
+    margin-top: 50px;
+  }
+  .container {
+    margin-top: 100px;
+  }
+}

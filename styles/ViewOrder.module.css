@@ -51,3 +51,15 @@
 .trTitle th td {
   text-align: center;
 }
+
+@media only screen and (max-width: 600px) {
+  .wrapper {
+    width: 90%;
+  }
+  .item {
+    overflow-x: scroll;
+  }
+  .trTitle {
+    white-space: nowrap;
+  }
+}

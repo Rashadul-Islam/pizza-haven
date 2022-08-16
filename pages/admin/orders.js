@@ -67,47 +67,49 @@ const orders = ({ orders }) => {
       onClick={() => close && setClose(false)}
     >
       <h1 className={styles.headerTitle}>Order List</h1>
-      <table className={styles.table}>
-        <tbody>
-          <tr className={styles.trTitle}>
-            <th>Customer</th>
-            <th>Id</th>
-            <th>Total</th>
-            <th>Payment</th>
-            <th>Status</th>
-            <th>Address</th>
-            <th>Action</th>
-          </tr>
-        </tbody>
-        {paginateItems?.map((order) => (
-          <tbody key={order._id}>
+      <div className={styles.item}>
+        <table className={styles.table}>
+          <tbody>
             <tr className={styles.trTitle}>
-              <td>{order.customer}</td>
-              <td>{order._id}</td>
-              <td>${order.total}</td>
-              <td>
-                {order.method === 0 ? <span>cash</span> : <span>paid</span>}
-              </td>
-              <td>{status[order.status]}</td>
-              <td>{order?.address}</td>
-              <td>
-                <button
-                  className={styles.button}
-                  onClick={() => handleModal(order._id)}
-                >
-                  View Order
-                </button>
-                <button
-                  className={styles.button}
-                  onClick={() => handleStatus(order._id)}
-                >
-                  Next Stage
-                </button>
-              </td>
+              <th>Customer</th>
+              <th>Id</th>
+              <th>Total</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Address</th>
+              <th>Action</th>
             </tr>
           </tbody>
-        ))}
-      </table>
+          {paginateItems?.map((order) => (
+            <tbody key={order._id}>
+              <tr className={styles.trTitle}>
+                <td>{order.customer}</td>
+                <td>{order._id}</td>
+                <td>${order.total}</td>
+                <td>
+                  {order.method === 0 ? <span>cash</span> : <span>paid</span>}
+                </td>
+                <td>{status[order.status]}</td>
+                <td>{order?.address}</td>
+                <td>
+                  <button
+                    className={styles.button}
+                    onClick={() => handleModal(order._id)}
+                  >
+                    View Order
+                  </button>
+                  <button
+                    className={styles.button}
+                    onClick={() => handleStatus(order._id)}
+                  >
+                    Next Stage
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      </div>
       <div className={styles.pagination}>
         <Pagination
           count={Math.ceil(orders?.length / 10)}
