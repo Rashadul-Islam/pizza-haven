@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 
 const managepizza = ({ products }) => {
   const router = useRouter();
-  const [getPizza, setPizza] = useState(products);
   const [pizzaList, setPizzaList] = useState(products);
   const [page, setPage] = useState(1);
   const [paginateItems, setPaginateItems] = useState([]);
@@ -16,9 +15,9 @@ const managepizza = ({ products }) => {
   const [openEdit, setOpenEdit] = useState(false);
 
   useEffect(() => {
-    setPizza(products);
+    setPizzaList(products);
     return () => {
-      setPizza(products);
+      setPizzaList(products);
     };
   }, [products]);
 
