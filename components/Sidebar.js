@@ -7,7 +7,7 @@ import { RiLogoutCircleRLine } from "react-icons/ri";
 import { useRouter } from "next/router";
 import styles from "../styles/Sidebar.module.css";
 
-const Sidebar = ({ children }) => {
+const Sidebar = ({ child }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -87,7 +87,7 @@ const Sidebar = ({ children }) => {
             <FaRegUserCircle />
           </div>
         </div>
-        {children}
+        {child}
       </main>
     </div>
   );

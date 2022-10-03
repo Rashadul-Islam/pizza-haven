@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   return (
     <>
       {!children?.props?.show && <Navbar />}
-      {children?.props?.show ? <Sidebar children={children} /> : children}
+      {children?.props?.show ? <Sidebar child={children} /> : children}
       {!children?.props?.show && <Footer />}
     </>
   );
