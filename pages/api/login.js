@@ -1,4 +1,4 @@
-import cookies from "cookies";
+import cookie from "cookie";
 
 const handler = (req, res) => {
   if (req.method === "POST") {
@@ -7,19 +7,15 @@ const handler = (req, res) => {
       username === process.env.ADMIN_USERNAME &&
       password === process.env.ADMIN_PASSWORD
     ) {
-      cookies.set("token", process.env.TOKEN, {
-        maxAge: 60 * 60,
-        sameSite: "strict",
-        path: "/",
-      });
-      // res.setHeader(
-      //   "Set-Cookie",
-      //   cookie.serialize("token", process.env.TOKEN, {
-      //     maxAge: 60 * 60,
-      //     sameSite: "strict",
-      //     path: "/",
-      //   })
-      // );
+      res.setHeader(
+        "Set-Cookie",
+        cookie.serialize("token", process.env.TOKEN, {
+          maxAge: 60 * 60,
+          sameSite: "strict",
+          path: "/",
+        })
+      );
+      res.setHeader("Access-Control-Allow-Origin", "*");
       res.status(200).json("Succesfull");
     } else {
       res.status(400).json("Wrong Credentials!");
