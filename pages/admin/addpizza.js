@@ -44,7 +44,7 @@ const addpizza = () => {
         img: url,
       };
 
-      await axios.post("http://localhost:3000/api/products", newProduct);
+      await axios.post("https://pizza-haven.herokuapp.com/api/products", newProduct);
 
       Router.push("/admin/managepizza");
     } catch (err) {

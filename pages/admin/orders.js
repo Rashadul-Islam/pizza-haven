@@ -17,7 +17,7 @@ const orders = ({ orders }) => {
     const item = orderList.filter((order) => order._id === id)[0];
     const currentStatus = item.status;
     try {
-      const res = await axios.put("http://localhost:3000/api/orders/" + id, {
+      const res = await axios.put("https://pizza-haven.herokuapp.com/api/orders/" + id, {
         status: currentStatus + 1,
       });
       setOrderList([
@@ -34,7 +34,7 @@ const orders = ({ orders }) => {
       const fetchData = async () => {
         try {
           const res = await axios.get(
-            `http://localhost:3000/api/orders/${viewOrder}`
+            `https://pizza-haven.herokuapp.com/api/orders/${viewOrder}`
           );
           setGetOrder(res.data);
         } catch (err) {
@@ -135,7 +135,7 @@ export const getServerSideProps = async (ctx) => {
       },
     };
   }
-  const orderRes = await axios.get("http://localhost:3000/api/orders");
+  const orderRes = await axios.get("https://pizza-haven.herokuapp.com/api/orders");
 
   return {
     props: {

@@ -63,7 +63,7 @@ const EditPizza = ({ setOpenEdit, editDefault, refreshData }) => {
       };
 
       await axios.put(
-        `http://localhost:3000/api/products/${editDefault?._id}`,
+        `https://pizza-haven.herokuapp.com/api/products/${editDefault?._id}`,
         newProduct
       );
       refreshData();
