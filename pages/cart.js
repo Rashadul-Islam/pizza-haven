@@ -24,7 +24,10 @@ const Cart = () => {
 
   const createOrder = async (data) => {
     try {
-      const res = await axios.post("https://pizza-haven.herokuapp.com/api/orders", data);
+      const res = await axios.post(
+        "https://pizza-haven.herokuapp.com/api/orders",
+        data
+      );
       if (res.status === 201) {
         dispatch(reset());
         router.push(`/orders/${res.data._id}`);
@@ -48,7 +51,7 @@ const Cart = () => {
           currency: currency,
         },
       });
-    }, [currency, showSpinner]);
+    }, [currency, showSpinner, options, dispatch]);
 
     return (
       <>
@@ -124,12 +127,14 @@ const Cart = () => {
                 </td>
                 <td>
                   <span className={styles.extras}>
-                    {product?.extras?.length ? product?.extras?.map((option, i, arr) => (
-                      <span key={i}>
-                        {option?.text}
-                        {i !== arr.length - 1 ? ", " : ""}
-                      </span>
-                    )):"none"}
+                    {product?.extras?.length
+                      ? product?.extras?.map((option, i, arr) => (
+                          <span key={i}>
+                            {option?.text}
+                            {i !== arr.length - 1 ? ", " : ""}
+                          </span>
+                        ))
+                      : "none"}
                   </span>
                 </td>
                 <td>

@@ -4,7 +4,7 @@ import styles from "../../styles/Admin.module.css";
 import Pagination from "@mui/material/Pagination";
 import ViewOrder from "../../components/ViewOrder";
 
-const orders = ({ orders }) => {
+const Orders = ({ orders }) => {
   const [orderList, setOrderList] = useState(orders);
   const [viewOrder, setViewOrder] = useState(null);
   const [getOrder, setGetOrder] = useState([]);
@@ -145,4 +145,4 @@ export const getServerSideProps = async (ctx) => {
   };
 };
 
-export default orders;
+export default Orders;

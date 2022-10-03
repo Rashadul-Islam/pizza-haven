@@ -6,7 +6,7 @@ import Pagination from "@mui/material/Pagination";
 import EditPizza from "../../components/EditPizza";
 import { useRouter } from "next/router";
 
-const managepizza = ({ products }) => {
+const Managepizza = ({ products }) => {
   const router = useRouter();
   const [pizzaList, setPizzaList] = useState(products);
   const [page, setPage] = useState(1);
@@ -155,4 +155,4 @@ export const getServerSideProps = async (ctx) => {
   };
 };
 
-export default managepizza;
+export default Managepizza;

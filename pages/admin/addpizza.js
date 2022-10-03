@@ -1,9 +1,9 @@
 import { useState } from "react";
-import styles from "../../styles/AddPizza.module.css";
+import styles from "../../styles/Addpizza.module.css";
 import axios from "axios";
 import Router from "next/router";
 
-const addpizza = () => {
+const Addpizza = () => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState(null);
   const [desc, setDesc] = useState(null);
@@ -157,4 +157,4 @@ export const getServerSideProps = async (ctx) => {
   };
 };
 
-export default addpizza;
+export default Addpizza;
