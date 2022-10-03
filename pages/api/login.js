@@ -15,7 +15,6 @@ const handler = (req, res) => {
           path: "/",
         })
       );
-      res.setHeader("Access-Control-Allow-Origin", "*");
       res.status(200).json("Succesfull");
     } else {
       res.status(400).json("Wrong Credentials!");
