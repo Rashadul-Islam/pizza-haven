@@ -14,6 +14,7 @@ import OrderDetail from "../components/OrderDetail";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const [close, setClose] = useState(true);
   const [open, setOpen] = useState(false);
   const [cash, setCash] = useState(false);
   const amount = cart.total;
@@ -51,7 +52,7 @@ const Cart = () => {
           currency: currency,
         },
       });
-    }, [currency, showSpinner, options, dispatch]);
+    }, [currency, showSpinner]);
 
     return (
       <>
@@ -61,8 +62,8 @@ const Cart = () => {
           disabled={false}
           forceReRender={[amount, currency, style]}
           fundingSource={undefined}
-          createOrder={(data, actions) => {
-            return actions.order
+          createOrder={async (data, actions) => {
+            const orderId = await actions.order
               .create({
                 purchase_units: [
                   {
@@ -72,27 +73,23 @@ const Cart = () => {
                     },
                   },
                 ],
-              })
-              .then((orderId) => {
-                // Your code here after create the order
-                return orderId;
               });
+            return orderId;
           }}
-          onApprove={function (data, actions) {
-            return actions.order.capture().then(function (details) {
-              const shipping = details.purchase_units[0].shipping;
-              const products = cart?.products?.map((data) => ({
-                item: data?._id,
-                quantity: parseInt(data?.quantity),
-                extras: data?.extras?.map((extra) => extra?.text),
-              }));
-              createOrder({
-                products: products,
-                customer: shipping.name.full_name,
-                address: shipping.address.address_line_1,
-                total: cart.total,
-                method: 1,
-              });
+          onApprove={async function (data, actions) {
+            const details = await actions.order.capture();
+            const shipping = details.purchase_units[0].shipping;
+            const products = cart?.products?.map((data_1) => ({
+              item: data_1?._id,
+              quantity: parseInt(data_1?.quantity),
+              extras: data_1?.extras?.map((extra) => extra?.text),
+            }));
+            createOrder({
+              products: products,
+              customer: shipping.name.full_name,
+              address: shipping.address.address_line_1,
+              total: cart.total,
+              method: 1,
             });
           }}
         />
@@ -101,7 +98,7 @@ const Cart = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={() => setClose(!close)}>
       <div className={styles.left}>
         <table className={styles.table}>
           <tbody>
@@ -192,7 +189,13 @@ const Cart = () => {
           )}
         </div>
       </div>
-      {cash && <OrderDetail total={cart.total} createOrder={createOrder} />}
+      {cash && close && (
+        <OrderDetail
+          total={cart.total}
+          createOrder={createOrder}
+          setClose={setClose}
+        />
+      )}
     </div>
   );
 };
