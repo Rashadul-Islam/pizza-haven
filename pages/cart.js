@@ -52,6 +52,7 @@ const Cart = () => {
           currency: currency,
         },
       });
+      // eslint-disable-next-line
     }, [currency, showSpinner]);
 
     return (
@@ -63,17 +64,16 @@ const Cart = () => {
           forceReRender={[amount, currency, style]}
           fundingSource={undefined}
           createOrder={async (data, actions) => {
-            const orderId = await actions.order
-              .create({
-                purchase_units: [
-                  {
-                    amount: {
-                      currency_code: currency,
-                      value: amount,
-                    },
+            const orderId = await actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    currency_code: currency,
+                    value: amount,
                   },
-                ],
-              });
+                },
+              ],
+            });
             return orderId;
           }}
           onApprove={async function (data, actions) {
