@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   const token = cookies.token;
 
-  dbConnect();
+  await dbConnect();
 
   if (method === "GET") {
     try {
@@ -41,7 +41,12 @@ export default async function handler(req, res) {
               },
             ],
             weekSellAmount: [
-              { $unwind: "$products" },
+              {
+                $unwind: {
+                  path: "$products",
+                  preserveNullAndEmptyArrays: true,
+                },
+              },
               {
                 $match: {
                   $expr: { $gte: [{ $substr: ["$createdAt", 0, 10] }, week] },
@@ -57,15 +62,36 @@ export default async function handler(req, res) {
             ],
           },
         },
-        { $unwind: "$total" },
-        { $unwind: "$totalSell" },
-        { $unwind: "$todaySell" },
+        {
+          $unwind: {
+            path: "$total",
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $unwind: {
+            path: "$total",
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $unwind: {
+            path: "$totalSell",
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $unwind: {
+            path: "$todaySell",
+            preserveNullAndEmptyArrays: true,
+          },
+        },
         {
           $project: {
-            orders: "$total.total",
-            totalSell: "$totalSell.sum",
-            todaySell: "$todaySell.sum",
-            report: "$weekSellAmount",
+            orders: { $cond: ["$total.total", "$total.total", 0] },
+            totalSell: { $cond: ["$totalSell.sum", "$totalSell.sum", 0] },
+            todaySell: { $cond: ["$todaySell.sum", "$todaySell.sum", 0] },
+            report: { $cond: ["$weekSellAmount", "$weekSellAmount", 0] },
           },
         },
       ]);

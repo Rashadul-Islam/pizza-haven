@@ -51,11 +51,11 @@ export const getServerSideProps = async (ctx) => {
   const productRes = await axios.get("http://localhost:3000/api/dashboard");
   return {
     props: {
-      products: productRes.data.products,
-      orders: productRes.data.orders[0].orders,
-      totalSell: productRes.data.orders[0].totalSell,
-      todaySell: productRes.data.orders[0].todaySell,
-      report: productRes.data.orders[0].report,
+      products: productRes?.data?.products,
+      orders: productRes?.data?.orders[0]?.orders,
+      totalSell: productRes?.data?.orders[0]?.totalSell,
+      todaySell: productRes?.data?.orders[0]?.todaySell,
+      report: productRes?.data?.orders[0]?.report,
       show: true,
     },
   };

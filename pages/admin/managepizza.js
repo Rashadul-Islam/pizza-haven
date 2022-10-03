@@ -40,11 +40,11 @@ const managepizza = ({ products }) => {
 
   useEffect(() => {
     const startIndex = (page - 1) * 10;
-    setPaginateItems(getPizza?.slice(startIndex, startIndex + 10));
+    setPaginateItems(pizzaList?.slice(startIndex, startIndex + 10));
     return () => {
       setPaginateItems([]);
     };
-  }, [page, getPizza]);
+  }, [page, pizzaList]);
 
   const refreshData = () => {
     router.replace(router.asPath);

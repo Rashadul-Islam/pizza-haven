@@ -141,7 +141,6 @@ const addpizza = () => {
 
 export const getServerSideProps = async (ctx) => {
   const myCookie = ctx.req?.cookies || "";
-
   if (myCookie.token !== process.env.TOKEN) {
     return {
       redirect: {
