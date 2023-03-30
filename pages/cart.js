@@ -26,7 +26,7 @@ const Cart = () => {
   const createOrder = async (data) => {
     try {
       const res = await axios.post(
-        "https://pizza-haven.herokuapp.com/api/orders",
+        "https://pizza-haven.vercel.app/api/orders",
         data
       );
       if (res.status === 201) {

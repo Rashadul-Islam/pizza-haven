@@ -24,7 +24,7 @@ const Managepizza = ({ products }) => {
   const handleDelete = async (id) => {
     try {
       const res = await axios.delete(
-        "https://pizza-haven.herokuapp.com/api/products/" + id
+        "https://pizza-haven.vercel.app/api/products/" + id
       );
       setPizzaList(pizzaList.filter((pizza) => pizza._id !== id));
     } catch (err) {
@@ -145,7 +145,7 @@ export const getServerSideProps = async (ctx) => {
     };
   }
 
-  const productRes = await axios.get("https://pizza-haven.herokuapp.com/api/products");
+  const productRes = await axios.get("https://pizza-haven.vercel.app/api/products");
 
   return {
     props: {

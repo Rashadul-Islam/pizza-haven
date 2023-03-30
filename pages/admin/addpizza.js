@@ -45,7 +45,7 @@ const Addpizza = () => {
       };
 
       await axios.post(
-        "https://pizza-haven.herokuapp.com/api/products",
+        "https://pizza-haven.vercel.app/api/products",
         newProduct
       );
 

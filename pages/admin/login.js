@@ -11,7 +11,7 @@ const Login = () => {
 
   const handleClick = async () => {
     try {
-      await axios.post("https://pizza-haven.herokuapp.com/api/login", {
+      await axios.post("https://pizza-haven.vercel.app/api/login", {
         username,
         password,
       });

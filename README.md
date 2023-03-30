@@ -1,4 +1,4 @@
-Live-Site: [Link](https://pizza-haven.herokuapp.com/)
+Live-Site: [Link](https://pizza-haven.vercel.app/)
 
 Features:
 

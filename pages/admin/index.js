@@ -48,7 +48,7 @@ export const getServerSideProps = async (ctx) => {
     };
   }
 
-  const productRes = await axios.get("https://pizza-haven.herokuapp.com/api/dashboard");
+  const productRes = await axios.get("https://pizza-haven.vercel.app/api/dashboard");
   return {
     props: {
       products: productRes?.data?.products,

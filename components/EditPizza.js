@@ -63,7 +63,7 @@ const EditPizza = ({ setOpenEdit, editDefault, refreshData }) => {
       };
 
       await axios.put(
-        `https://pizza-haven.herokuapp.com/api/products/${editDefault?._id}`,
+        `https://pizza-haven.vercel.app/api/products/${editDefault?._id}`,
         newProduct
       );
       refreshData();

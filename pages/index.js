@@ -19,7 +19,7 @@ export default function Home({ pizzaList }) {
 }
 
 export const getServerSideProps = async () => {
-  const res = await axios.get("https://pizza-haven.herokuapp.com/api/products");
+  const res = await axios.get("https://pizza-haven.vercel.app/api/products");
   return {
     props: {
       pizzaList: res?.data,
