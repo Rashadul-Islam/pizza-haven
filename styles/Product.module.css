@@ -29,6 +29,10 @@
   border-bottom: 1px solid #d1411e;
 }
 
+.add {
+  margin-bottom: 50px;
+}
+
 .sizes {
   width: 40%;
   display: flex;
